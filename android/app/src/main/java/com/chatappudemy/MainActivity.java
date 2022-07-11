@@ -11,7 +11,7 @@ public class MainActivity extends ReactActivity {
    * rendering of the component.
    */
   @Override
-  protected String getMainComponentName() {
+  protected Strings getMainComponentName() {
     return "ChatAppUdemy";
   }
 
@@ -26,7 +26,7 @@ public class MainActivity extends ReactActivity {
   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
-    public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
+    public MainActivityDelegate(ReactActivity activity, Strings mainComponentName) {
       super(activity, mainComponentName);
     }
 

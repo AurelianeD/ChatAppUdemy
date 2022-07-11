@@ -3,24 +3,25 @@ import {TextInput, Text, StyleSheet, View} from 'react-native';
 import Color from '../utils/Color';
 import Constants from '../const/Constants';
 
-const EmailTextField = ({
+const PasswordTextField = ({
   term,
-  placeHolder,
+  placeholder,
   onTermChange,
-  onValidateEmailAddress,
+  onValidatePasswordField,
   error,
 }) => {
     return (
-        <View>
+        <View >
             <Text style={styles.ErrorText}>{error}</Text>
             <View style={styles.TextFieldView}>
                 <TextInput
                     autoCorrect={false}
+                    secureTextEntry
                     style={styles.TextField}
-                    placeholder={placeHolder}
+                    placeholder={placeholder}
                     value={term}
                     onChangeText={onTermChange}
-                    onEndEditing={onValidateEmailAddress}
+                    onEndEditing={onValidatePasswordField}
                 />
             </View>
         </View>
@@ -52,4 +53,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EmailTextField
+export default PasswordTextField

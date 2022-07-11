@@ -27,7 +27,7 @@ public class MainApplicationTurboModuleManagerDelegate
 
   protected native HybridData initHybrid();
 
-  native boolean canCreateTurboModule(String moduleName);
+  native boolean canCreateTurboModule(Strings moduleName);
 
   public static class Builder extends ReactPackageTurboModuleManagerDelegate.Builder {
     protected MainApplicationTurboModuleManagerDelegate build(
