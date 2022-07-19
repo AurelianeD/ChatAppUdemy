@@ -77,12 +77,12 @@ function SignInScreen() {
                         .catch(error => {
                             setIsLoading(false);
                             console.log('error');
-                            Alert.alert(error);
+                            Alert.alert(error.message);
                         });
                 });
         } catch (error) {
             setIsLoading(false);
-            Alert.alert(error);
+            Alert.alert(error.message);
         }
     };
 
@@ -110,7 +110,7 @@ function SignInScreen() {
                             }}
                             onValidatePasswordField={validatePasswordField}
                         />
-                        <Button title={Strings.Join} isLoading={isLoading}/>
+                        <Button title={Strings.Join} isLoading={isLoading} onPress={performAuth}/>
                     </SafeAreaView>
                 </View>
             </KeyboardAvoidingView>
