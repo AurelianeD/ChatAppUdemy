@@ -3,7 +3,10 @@ const Strings = {
     InvalidEmailAddress: 'Invalid Email Address !',
     PasswordFieldEmpty: 'Password Field cannot be empty !',
     EmailPlaceHolder: 'Email Address',
-    PasswordPlaceHolder: 'Password'
-}
+    PasswordPlaceHolder: 'Password',
+    EnterYourGroupName: 'Enter your group name',
+    GroupNameEmpty: 'Group name cannot be empty',
+    CreateGroup: 'Create Group',
+};
 
 export default Strings;

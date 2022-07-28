@@ -8,6 +8,7 @@ import {
     Image,
     KeyboardAvoidingView,
 } from 'react-native';
+
 import Button from '../components/Button';
 import Strings from '../const/Strings';
 import Color from '../utils/Color';
@@ -21,7 +22,7 @@ import PasswordTextField from '../components/PasswordTextField';
 
 import firebase from '../firebase/Firebase';
 
-function SignInScreen() {
+function SignInScreen({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
@@ -64,7 +65,13 @@ function SignInScreen() {
                 .signInWithEmailAndPassword(email, password)
                 .then(user => {
                     setIsLoading(false);
-                    Alert.alert('Logged In');
+
+                    navigation.reset({
+                        index: 0,
+                        routes: [{name: 'Groups Screen'}],
+                    });
+
+                    // Alert.alert('Logged In');
                 })
                 .catch(error => {
                     firebase
@@ -72,7 +79,11 @@ function SignInScreen() {
                         .createUserWithEmailAndPassword(email, password)
                         .then(user => {
                             setIsLoading(false);
-                            Alert.alert('Create a new user');
+                            navigation.reset({
+                                index: 0,
+                                routes: [{name: 'Groups Screen'}],
+                            });
+                            // Alert.alert('Create a new user');
                         })
                         .catch(error => {
                             setIsLoading(false);
@@ -91,7 +102,7 @@ function SignInScreen() {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View>
                     <SafeAreaView>
-                        <Image style={styles.logo} source={Images.logo}></Image>
+                        <Image style={styles.logo} source={Images.logo}/>
                         <EmailTextField
                             term={email}
                             error={emailError}
@@ -110,7 +121,11 @@ function SignInScreen() {
                             }}
                             onValidatePasswordField={validatePasswordField}
                         />
-                        <Button title={Strings.Join} isLoading={isLoading} onPress={performAuth}/>
+                        <Button
+                            title={Strings.Join}
+                            isLoading={isLoading}
+                            onPress={performAuth}
+                        />
                     </SafeAreaView>
                 </View>
             </KeyboardAvoidingView>
