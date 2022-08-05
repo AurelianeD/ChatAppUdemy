@@ -11,9 +11,11 @@ import ButtonWithBackground from '../components/ButtonWithBackground';
 import Images from '../const/Images';
 import GroupsItems from '../components/GroupsItems';
 import firebase, {firestore} from '../firebase/Firebase';
+import Lottie from 'lottie-react-native';
 
 function GroupsScreen({navigation}) {
   const [groups, setGroups] = useState('');
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -60,6 +62,7 @@ function GroupsScreen({navigation}) {
 
     db.collection('groups').onSnapshot(querySnapshot => {
       querySnapshot.docChanges().forEach(function (change) {
+        setIsDataLoaded(true);
         if (change.type === 'added') {
           console.log('new group :', change.doc.data());
           groupArray.push(change.doc.data());
@@ -75,22 +78,41 @@ function GroupsScreen({navigation}) {
     });
   }
 
+  function showListLoader() {
+    return (
+      <View style={{flex: 1}}>
+        <Lottie
+          source={require('../../assets/loader-list.json')}
+          autoPlay
+          loop
+        />
+      </View>
+    );
+  }
+
+  function showGroupsView() {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={groups}
+          keyExtractor={(item, index) => 'key' + index}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Chat Screen', {item});
+                }}>
+                <GroupsItems item={item} />
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
+    );
+  }
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={groups}
-        keyExtractor={(item, index) => 'key' + index}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Chat Screen', {item});
-              }}>
-              <GroupsItems item={item} />
-            </TouchableOpacity>
-          );
-        }}
-      />
+    <View style={{flex: 1}}>
+      {isDataLoaded ? showGroupsView() : showListLoader()}
     </View>
   );
 }

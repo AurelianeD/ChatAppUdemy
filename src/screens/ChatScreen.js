@@ -14,6 +14,7 @@ import MessageFieldView from '../components/MessageFieldView';
 import Strings from '../const/Strings';
 import DismissKeyboard from '../components/DismissKeyboard';
 import MessageItems from '../components/MessageItems';
+import Lottie from 'lottie-react-native';
 
 function ChatScreen({route, navigation}) {
   const [messageList, setMessageList] = useState([]);
@@ -145,41 +146,55 @@ function ChatScreen({route, navigation}) {
       });
   }
 
-  return (
-    <DismissKeyboard>
-      <KeyboardAvoidingView
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={100}>
-        <View style={styles.container}>
-          <FlatList
-            style={styles.flatList}
-            data={messageList}
-            keyExtractor={(item, index) => 'key' + index}
-            renderItem={({item}) => {
-              return (
-                <TouchableOpacity onPress={() => {}}>
-                  <MessageItems item={item} />
-                </TouchableOpacity>
-              );
-            }}
-          />
-          <View style={styles.messageFieldView}>
-            <MessageFieldView
-              term={message}
-              placeholder={Strings.TypeYourMessage}
-              onTermChange={message => setMessage(message)}
-              onSubmit={sendMessagesToChat}
+  function showJoinView() {
+    return (
+      <View style={{flex: 1}}>
+        <Lottie source={require('../../assets/chatBox.json')} autoPlay loop />
+      </View>
+    );
+  }
+
+  function showChatView() {
+    return (
+      <DismissKeyboard>
+        <KeyboardAvoidingView
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+          behavior="padding"
+          enabled
+          keyboardVerticalOffset={100}>
+          <View style={styles.container}>
+            <FlatList
+              style={styles.flatList}
+              data={messageList}
+              keyExtractor={(item, index) => 'key' + index}
+              renderItem={({item}) => {
+                return (
+                  <TouchableOpacity onPress={() => {}}>
+                    <MessageItems item={item} />
+                  </TouchableOpacity>
+                );
+              }}
             />
+            <View style={styles.messageFieldView}>
+              <MessageFieldView
+                term={message}
+                placeholder={Strings.TypeYourMessage}
+                onTermChange={message => setMessage(message)}
+                onSubmit={sendMessagesToChat}
+              />
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </DismissKeyboard>
+        </KeyboardAvoidingView>
+      </DismissKeyboard>
+    );
+  }
+
+  return (
+    <View style={{flex: 1}}>{isJoined ? showChatView() : showJoinView()}</View>
   );
 }
 

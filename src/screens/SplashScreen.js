@@ -4,6 +4,7 @@ import Color from '../utils/Color';
 import Images from '../const/Images';
 import Constants from '../const/Constants';
 import firebase from '../firebase/Firebase';
+import Lottie from 'lottie-react-native';
 
 function SplashScreen({navigation}) {
   useEffect(() => {
@@ -25,17 +26,24 @@ function SplashScreen({navigation}) {
           });
         }
       });
-    }, 1000);
+    }, 2000);
   }
 
   return (
     <View style={styles.container}>
       <Image style={styles.logo} source={Images.logo} />
+      <View style={styles.lottieView}>
+        <Lottie source={require('../../assets/chatBox.json')} autoPlay loop />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  lottieView: {
+    width: '100%',
+    height: Constants.screenHeight * 0.6,
+  },
   logo: {
     alignSelf: 'center',
     margin: 0.04 * Constants.screenHeight,
