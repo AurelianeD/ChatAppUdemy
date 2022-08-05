@@ -26,10 +26,29 @@ function GroupsScreen({navigation}) {
         />
       ),
       headerLeft: () => (
-        <ButtonWithBackground onPress={() => {}} image={Images.logout} />
+        <ButtonWithBackground
+          onPress={() => {
+            signOutUser().then(() => {
+              console.log('Sign out successfully');
+            });
+          }}
+          image={Images.logout}
+        />
       ),
     });
   });
+
+  const signOutUser = async () => {
+    try {
+      await firebase.auth().signOut();
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{name: 'SplashScreen'}],
+      // });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     getChats();
