@@ -13,11 +13,11 @@ function ChatFlow() {
   return (
     <NavigationContainer>
       <Stack.Navigator name="chat">
-        {/*<Stack.Screen*/}
-        {/*  options={{headerShown: false}}*/}
-        {/*  name="SignInScreen"*/}
-        {/*  component={SignInScreen}*/}
-        {/*/>*/}
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SignInScreen"
+          component={SignInScreen}
+        />
         <Stack.Screen
           options={{title: 'Groups'}}
           name="Groups Screen"

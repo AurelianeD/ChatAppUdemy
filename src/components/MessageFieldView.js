@@ -1,8 +1,8 @@
 import React from 'react';
-import {TextInput, Text, StyleSheet, View, Button} from 'react-native';
+import {TextInput, Text, StyleSheet, View} from 'react-native';
 import Color from '../utils/Color';
 import Constants from '../const/Constants';
-import Button from '../components/Button';
+import Button from './Button';
 import Strings from '../const/Strings';
 
 const MessageFieldView = ({
@@ -25,7 +25,7 @@ const MessageFieldView = ({
           onChangeText={onTermChange}
           onEndEditing={onValidateTextField}
         />
-          <Button title={Strings.Send} color={Color.white} onPress={onSubmit} />
+        <Button color={Color.white} title={Strings.Send} onPress={onSubmit} />
       </View>
     </View>
   );
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
 
   textField: {
     fontSize: 14,
-    flex: 1,
     marginRight: 10,
     paddingLeft: 10,
     width: '75%',
@@ -57,9 +56,8 @@ const styles = StyleSheet.create({
     backgroundColor: Color.smoke,
   },
 
-  button: {
-    flex: 1,
-    alignSelf: 'center',
+  Button: {
+    // alignSelf: 'center',
     width: '25%',
     height: '100%',
   },
